@@ -1,0 +1,183 @@
+
+@model WebPromotion.ViewModels.Modal.ModalViewModels
+
+@{
+    string modalClass = Model.Type switch
+    {
+        "success" => "modal-success",
+        "failed" => "modal-danger",
+        _ => "modal-primary"
+    };
+}
+
+
+<!-- Modal Backdrop -->
+<div class="modal-backdrop fade @(Model.IsVisible ? "show" : "")" id="modalBackdrop" style="display: @(Model.IsVisible ? "block" : "none");"></div>
+
+<!-- Modal -->
+<div class="modal fade @(Model.IsVisible ? "show" : "")" id="myModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="@(!Model.IsVisible)" style="display: @(Model.IsVisible ? "block" : "none");">
+    <div class="modal-dialog modal-dialog-centered @modalClass">
+        <div class="modal-content">
+            <div class="modal-body text-center p-lg-4">
+                @if (Model.Type == "success")
+                {
+                    <svg width="80" height="80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2" class="mb-3">
+                        <circle class="path circle" fill="none" stroke="#198754" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
+                        <polyline class="path check" fill="none" stroke="#198754" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" points="100.2,40.2 51.5,88.8 29.8,67.5 " />
+                    </svg>
+                }
+                else if (Model.Type == "failed")
+                {
+                    <svg width="80" height="80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130.2 130.2" class="mb-3">
+                        <circle class="path circle" fill="none" stroke="#dc3545" stroke-width="6" stroke-miterlimit="10" cx="65.1" cy="65.1" r="62.1" />
+                        <line class="path line" fill="none" stroke="#dc3545" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="44.7" y1="44.7" x2="85.5" y2="85.5"/>
+                        <line class="path line" fill="none" stroke="#dc3545" stroke-width="6" stroke-linecap="round" stroke-miterlimit="10" x1="85.5" y1="44.7" x2="44.7" y2="85.5"/>
+                    </svg>
+                }
+                
+                <h4 class="@(Model.Type == "success" ? "text-success" : Model.Type == "failed" ? "text-danger" : "text-primary") mt-3">@Model.Title</h4>
+                <p class="mt-3">@Model.Message</p>
+                <button type="button" class="btn btn-lg mt-3 @(Model.Type == "success" ? "btn-success" : Model.Type == "failed" ? "btn-danger" : "btn-primary")" onclick="closeModal();">@Model.ButtonText</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function showModal() {
+        var modal = document.getElementById('myModal');
+        var backdrop = document.getElementById('modalBackdrop');
+        
+        if (modal && backdrop) {
+            modal.style.display = 'block';
+            backdrop.style.display = 'block';
+            
+            // Add classes with slight delay for animation
+            setTimeout(function() {
+                modal.classList.add('show');
+                backdrop.classList.add('show');
+            }, 10);
+            
+            // Prevent body scroll
+            document.body.style.overflow = 'hidden';
+            document.body.classList.add('modal-open');
+        }
+    }
+    
+    function closeModal() {
+        var modal = document.getElementById('myModal');
+        var backdrop = document.getElementById('modalBackdrop');
+        
+        if (modal && backdrop) {
+            modal.classList.remove('show');
+            backdrop.classList.remove('show');
+            
+            // Hide after animation completes
+            setTimeout(function() {
+                modal.style.display = 'none';
+                backdrop.style.display = 'none';
+            }, 150);
+            
+            // Restore body scroll
+            document.body.style.overflow = '';
+            document.body.classList.remove('modal-open');
+        }
+    }
+
+    // Close modal when clicking backdrop
+    document.addEventListener('click', function (event) {
+        var backdrop = document.getElementById('modalBackdrop');
+        if (event.target === backdrop) {
+            closeModal();
+        }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeModal();
+        }
+    });
+
+    @if (Model.IsVisible)
+    {
+        <text>
+        // Auto show modal if IsVisible is true
+        document.addEventListener("DOMContentLoaded", function () {
+            showModal();
+        });
+        </text>
+    }
+
+</script>
+
+<style>
+    /* Modal */
+    .modal#myModal .modal-content,
+    .modal#statusErrorsModal .modal-content {
+        border-radius: 30px;
+    }
+    .modal#myModal .modal-content svg,
+    .modal#myModal .modal-content .path {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 0;
+    }
+    .modal#myModal .modal-content .path.circle,.circle {
+        -webkit-animation: dash 0.9s ease-in-out;
+        animation: dash 0.9s ease-in-out;
+    }
+    .modal#myModal .modal-content .path.line {
+        stroke-dashoffset: 1000;
+        -webkit-animation: dash 0.95s 0.35s ease-in-out forwards;
+        animation: dash 0.95s 0.35s ease-in-out forwards;
+    }
+    .modal#myModal .modal-content .path.check {
+        stroke-dashoffset: -100;
+        -webkit-animation: dash-check 0.95s 0.35s ease-in-out forwards;
+        animation: dash-check 0.95s 0.35s ease-in-out forwards;
+    }
+    
+    @@-webkit-keyframes dash {
+        0% {
+            stroke-dashoffset: 1000;
+        }
+        100% {
+            stroke-dashoffset: 0;
+        }
+    }
+    
+    @@keyframes dash {
+        0% {
+            stroke-dashoffset: 1000;
+        }
+        100% {
+            stroke-dashoffset: 0;
+        }
+    }
+    
+    @@-webkit-keyframes dash-check {
+        0% {
+            stroke-dashoffset: -100;
+        }
+        100% {
+            stroke-dashoffset: 900;
+        }
+    }
+    
+    @@keyframes dash-check {
+        0% {
+            stroke-dashoffset: -100;
+        }
+        100% {
+            stroke-dashoffset: 900;
+        }
+    }
+    
+    .box00 {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+    /* Modal End */
+</style>
