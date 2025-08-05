@@ -9,11 +9,11 @@ public partial class LoiCarFromDealer
 {
     public int LoiId { get; set; }
 
-    public int DealerCarId { get; set; }
+    public int DealerCarUnitId { get; set; }
 
     public int TotalUnit { get; set; }
 
-    public virtual DealerCar DealerCar { get; set; }
+    public virtual DealerCarUnit DealerCarUnit { get; set; }
 
     public virtual LetterOfIntent Loi { get; set; }
 }

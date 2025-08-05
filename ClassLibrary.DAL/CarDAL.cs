@@ -8,8 +8,8 @@ namespace DealerApi.DAL;
 
 public class CarDAL : ICar
 {
-    private readonly DBRndDealerContext _context;
-    public CarDAL(DBRndDealerContext context)
+    private readonly DealerRndDBContext _context;
+    public CarDAL(DealerRndDBContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }

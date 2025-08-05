@@ -23,6 +23,8 @@ public partial class Agreement
 
     public DateTime AgreementDate { get; set; }
 
+    public virtual ICollection<AgreementUnit> AgreementUnits { get; set; } = new List<AgreementUnit>();
+
     public virtual CreditApplication CreditApplication { get; set; }
 
     public virtual Customer Customer { get; set; }

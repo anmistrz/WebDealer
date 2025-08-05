@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary.BO\DealerApi.Entities.csproj" />
     <ProjectReference Include="..\ClassLibrary.DAL\DealerApi.DAL.csproj" />
   </ItemGroup>
 

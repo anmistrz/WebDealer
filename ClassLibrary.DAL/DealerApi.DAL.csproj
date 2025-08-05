@@ -10,8 +10,4 @@
     <ProjectReference Include="..\ClassLibrary.BO\DealerApi.Entities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Context\" />
-  </ItemGroup>
-
 </Project>

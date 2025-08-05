@@ -21,7 +21,7 @@ public partial class CustomerRating
 
     public string RatingType { get; set; }
 
-    public int RatingValue { get; set; }
+    public double RatingValue { get; set; }
 
     public string Comments { get; set; }
 

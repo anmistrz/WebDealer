@@ -29,7 +29,5 @@ public partial class DealerCar
 
     public virtual ICollection<DealerCarUnit> DealerCarUnits { get; set; } = new List<DealerCarUnit>();
 
-    public virtual ICollection<LoiCarFromDealer> LoiCarFromDealers { get; set; } = new List<LoiCarFromDealer>();
-
     public virtual WarrantyRegistration WarrantyRegistration { get; set; }
 }

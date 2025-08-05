@@ -9,23 +9,15 @@ public partial class TestDrive
 {
     public int TestDriveId { get; set; }
 
-    public int CarId { get; set; }
-
     public int CustomerId { get; set; }
 
-    public int DealerId { get; set; }
+    public int DealerCarUnitId { get; set; }
 
     public int SalesPersonId { get; set; }
 
     public string Note { get; set; }
 
     public DateTime AppointmentDate { get; set; }
-
-    public int DealerCarUnitId { get; set; }
-
-    public string Status { get; set; }
-
-    public virtual Car Car { get; set; }
 
     public virtual Customer Customer { get; set; }
 

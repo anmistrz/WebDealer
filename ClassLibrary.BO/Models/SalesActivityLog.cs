@@ -17,7 +17,7 @@ public partial class SalesActivityLog
 
     public string ActivityType { get; set; }
 
-    public int? RelatedNotificationId { get; set; }
+    public int? NotificationId { get; set; }
 
     public DateTime ActivityDate { get; set; }
 
@@ -27,7 +27,7 @@ public partial class SalesActivityLog
 
     public virtual Dealer Dealer { get; set; }
 
-    public virtual Notification RelatedNotification { get; set; }
+    public virtual Notification Notification { get; set; }
 
     public virtual SalesPerson SalesPerson { get; set; }
 }

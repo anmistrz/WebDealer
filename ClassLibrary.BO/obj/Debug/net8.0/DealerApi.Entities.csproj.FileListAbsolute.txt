@@ -1,0 +1,13 @@
+D:\Users\bsi80252\Exercise\Learn C#\NET Core\DealerApp\ClassLibrary.BO\bin\Debug\net8.0\DealerApi.Entities.deps.json
+D:\Users\bsi80252\Exercise\Learn C#\NET Core\DealerApp\ClassLibrary.BO\bin\Debug\net8.0\DealerApi.Entities.dll
+D:\Users\bsi80252\Exercise\Learn C#\NET Core\DealerApp\ClassLibrary.BO\bin\Debug\net8.0\DealerApi.Entities.pdb
+D:\Users\bsi80252\Exercise\Learn C#\NET Core\DealerApp\ClassLibrary.BO\obj\Debug\net8.0\DealerApi.Entities.csproj.AssemblyReference.cache
+D:\Users\bsi80252\Exercise\Learn C#\NET Core\DealerApp\ClassLibrary.BO\obj\Debug\net8.0\DealerApi.Entities.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\bsi80252\Exercise\Learn C#\NET Core\DealerApp\ClassLibrary.BO\obj\Debug\net8.0\DealerApi.Entities.AssemblyInfoInputs.cache
+D:\Users\bsi80252\Exercise\Learn C#\NET Core\DealerApp\ClassLibrary.BO\obj\Debug\net8.0\DealerApi.Entities.AssemblyInfo.cs
+D:\Users\bsi80252\Exercise\Learn C#\NET Core\DealerApp\ClassLibrary.BO\obj\Debug\net8.0\DealerApi.Entities.csproj.CoreCompileInputs.cache
+D:\Users\bsi80252\Exercise\Learn C#\NET Core\DealerApp\ClassLibrary.BO\obj\Debug\net8.0\DealerApi.Entities.sourcelink.json
+D:\Users\bsi80252\Exercise\Learn C#\NET Core\DealerApp\ClassLibrary.BO\obj\Debug\net8.0\DealerApi.Entities.dll
+D:\Users\bsi80252\Exercise\Learn C#\NET Core\DealerApp\ClassLibrary.BO\obj\Debug\net8.0\refint\DealerApi.Entities.dll
+D:\Users\bsi80252\Exercise\Learn C#\NET Core\DealerApp\ClassLibrary.BO\obj\Debug\net8.0\DealerApi.Entities.pdb
+D:\Users\bsi80252\Exercise\Learn C#\NET Core\DealerApp\ClassLibrary.BO\obj\Debug\net8.0\ref\DealerApi.Entities.dll

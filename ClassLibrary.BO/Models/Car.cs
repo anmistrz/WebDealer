@@ -30,6 +30,4 @@ public partial class Car
     public string Description { get; set; }
 
     public virtual ICollection<DealerCar> DealerCars { get; set; } = new List<DealerCar>();
-
-    public virtual ICollection<TestDrive> TestDrives { get; set; } = new List<TestDrive>();
 }
