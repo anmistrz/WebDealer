@@ -7,13 +7,6 @@ namespace WebPromotion.BL.CarBL
 {
     public class CarBLClass : ICarBL
     {
-        private readonly ICar _carDAL;
-
-        public CarBLClass(ICar carDAL)
-        {
-            _carDAL = carDAL;
-        }
-
         public void DeleteCar(int id)
         {
             throw new NotImplementedException();
@@ -31,20 +24,7 @@ namespace WebPromotion.BL.CarBL
 
         public List<SelectListItem> GetOptionsCar()
         {
-            try 
-            {
-                var cars = _carDAL.GetAll();
-                return cars.Select(car => new SelectListItem
-                {
-                    Value = car.CarId.ToString(),
-                    Text = $"{car.Make} {car.CarModel} ({car.Year})"
-                }).ToList();
-            }
-            catch (Exception ex)
-            {
-                // Handle exceptions as needed
-                throw new Exception("Error retrieving car options", ex);
-            }
+            throw new NotImplementedException();
         }
 
         public CarInsertViewModels InsertCar(CarInsertViewModels car)

@@ -21,7 +21,7 @@ public partial class CustomerRating
 
     public string RatingType { get; set; }
 
-    public int RatingValue { get; set; }
+    public double RatingValue { get; set; }
 
     public string Comments { get; set; }
 
@@ -35,5 +35,5 @@ public partial class CustomerRating
 
     public virtual SalesPerson SalesPerson { get; set; }
 
-    public virtual TesDrive TestDrive { get; set; }
+    public virtual TestDrive TestDrive { get; set; }
 }

@@ -11,7 +11,7 @@ public partial class ConsultHistory
 
     public int? CustomerId { get; set; }
 
-    public int DealerId { get; set; }
+    public int DealerCarUnitId { get; set; }
 
     public int? SalesPersonId { get; set; }
 
@@ -25,7 +25,7 @@ public partial class ConsultHistory
 
     public virtual ICollection<CustomerRating> CustomerRatings { get; set; } = new List<CustomerRating>();
 
-    public virtual Dealer Dealer { get; set; }
+    public virtual DealerCarUnit DealerCarUnit { get; set; }
 
     public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
 

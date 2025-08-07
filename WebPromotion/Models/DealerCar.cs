@@ -21,9 +21,13 @@ public partial class DealerCar
 
     public string Status { get; set; }
 
+    public virtual ICollection<Agreement> Agreements { get; set; } = new List<Agreement>();
+
     public virtual Car Car { get; set; }
 
     public virtual Dealer Dealer { get; set; }
 
     public virtual ICollection<DealerCarUnit> DealerCarUnits { get; set; } = new List<DealerCarUnit>();
+
+    public virtual WarrantyRegistration WarrantyRegistration { get; set; }
 }

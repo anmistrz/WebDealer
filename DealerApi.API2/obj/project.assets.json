@@ -1651,8 +1651,13 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "AutoMapper": "15.0.1",
           "DealerApi.DAL": "1.0.0",
-          "DealerApi.Entities": "1.0.0"
+          "DealerApi.Entities": "1.0.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.19",
+          "Microsoft.Extensions.DependencyInjection": "9.0.8",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.8",
+          "System.IdentityModel.Tokens.Jwt": "8.13.0"
         },
         "compile": {
           "bin/placeholder/DealerApi.Application.dll": {}
@@ -1665,7 +1670,12 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "DealerApi.Entities": "1.0.0"
+          "DealerApi.Entities": "1.0.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.19",
+          "Microsoft.EntityFrameworkCore": "9.0.8",
+          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.8",
+          "Microsoft.Extensions.Configuration.Abstractions": "9.0.8",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.8"
         },
         "compile": {
           "bin/placeholder/DealerApi.DAL.dll": {}
@@ -4483,23 +4493,23 @@
     ]
   },
   "packageFolders": {
-    "D:\\Users\\bsi80252\\.nuget\\packages\\": {},
+    "C:\\Users\\anasa\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Users\\bsi80252\\Exercise\\Learn C#\\NET Core\\DealerApp\\DealerApi.API2\\DealerApi.API.csproj",
+      "projectUniqueName": "C:\\ANAS\\Project NET\\WebPromotion\\DealerApi.API2\\DealerApi.API.csproj",
       "projectName": "DealerApi.API",
-      "projectPath": "D:\\Users\\bsi80252\\Exercise\\Learn C#\\NET Core\\DealerApp\\DealerApi.API2\\DealerApi.API.csproj",
-      "packagesPath": "D:\\Users\\bsi80252\\.nuget\\packages\\",
-      "outputPath": "D:\\Users\\bsi80252\\Exercise\\Learn C#\\NET Core\\DealerApp\\DealerApi.API2\\obj\\",
+      "projectPath": "C:\\ANAS\\Project NET\\WebPromotion\\DealerApi.API2\\DealerApi.API.csproj",
+      "packagesPath": "C:\\Users\\anasa\\.nuget\\packages\\",
+      "outputPath": "C:\\ANAS\\Project NET\\WebPromotion\\DealerApi.API2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "D:\\Users\\bsi80252\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\anasa\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4514,14 +4524,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Users\\bsi80252\\Exercise\\Learn C#\\NET Core\\DealerApp\\ClassLibrary.BO\\DealerApi.Entities.csproj": {
-              "projectPath": "D:\\Users\\bsi80252\\Exercise\\Learn C#\\NET Core\\DealerApp\\ClassLibrary.BO\\DealerApi.Entities.csproj"
+            "C:\\ANAS\\Project NET\\WebPromotion\\ClassLibrary.BO\\DealerApi.Entities.csproj": {
+              "projectPath": "C:\\ANAS\\Project NET\\WebPromotion\\ClassLibrary.BO\\DealerApi.Entities.csproj"
             },
-            "D:\\Users\\bsi80252\\Exercise\\Learn C#\\NET Core\\DealerApp\\ClassLibrary.DAL\\DealerApi.DAL.csproj": {
-              "projectPath": "D:\\Users\\bsi80252\\Exercise\\Learn C#\\NET Core\\DealerApp\\ClassLibrary.DAL\\DealerApi.DAL.csproj"
+            "C:\\ANAS\\Project NET\\WebPromotion\\ClassLibrary.DAL\\DealerApi.DAL.csproj": {
+              "projectPath": "C:\\ANAS\\Project NET\\WebPromotion\\ClassLibrary.DAL\\DealerApi.DAL.csproj"
             },
-            "D:\\Users\\bsi80252\\Exercise\\Learn C#\\NET Core\\DealerApp\\DealerApi.Application\\DealerApi.Application.csproj": {
-              "projectPath": "D:\\Users\\bsi80252\\Exercise\\Learn C#\\NET Core\\DealerApp\\DealerApi.Application\\DealerApi.Application.csproj"
+            "C:\\ANAS\\Project NET\\WebPromotion\\DealerApi.Application\\DealerApi.Application.csproj": {
+              "projectPath": "C:\\ANAS\\Project NET\\WebPromotion\\DealerApi.Application\\DealerApi.Application.csproj"
             }
           }
         }

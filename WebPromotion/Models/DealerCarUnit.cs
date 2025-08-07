@@ -21,5 +21,13 @@ public partial class DealerCarUnit
 
     public DateTime AddedDate { get; set; }
 
+    public virtual ICollection<AgreementUnit> AgreementUnits { get; set; } = new List<AgreementUnit>();
+
+    public virtual ICollection<ConsultHistory> ConsultHistories { get; set; } = new List<ConsultHistory>();
+
     public virtual DealerCar DealerCar { get; set; }
+
+    public virtual ICollection<LoiCarFromDealer> LoiCarFromDealers { get; set; } = new List<LoiCarFromDealer>();
+
+    public virtual ICollection<TestDrive> TestDrives { get; set; } = new List<TestDrive>();
 }

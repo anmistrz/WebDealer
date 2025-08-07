@@ -1083,8 +1083,13 @@
       },
       "DealerApi.Application/1.0.0": {
         "dependencies": {
+          "AutoMapper": "15.0.1",
           "DealerApi.DAL": "1.0.0",
-          "DealerApi.Entities": "1.0.0"
+          "DealerApi.Entities": "1.0.0",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "8.0.19",
+          "Microsoft.Extensions.DependencyInjection": "9.0.8",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.8",
+          "System.IdentityModel.Tokens.Jwt": "8.13.0"
         },
         "runtime": {
           "DealerApi.Application.dll": {
@@ -1095,7 +1100,12 @@
       },
       "DealerApi.DAL/1.0.0": {
         "dependencies": {
-          "DealerApi.Entities": "1.0.0"
+          "DealerApi.Entities": "1.0.0",
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.19",
+          "Microsoft.EntityFrameworkCore": "9.0.8",
+          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.8",
+          "Microsoft.Extensions.Configuration.Abstractions": "9.0.8",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.8"
         },
         "runtime": {
           "DealerApi.DAL.dll": {

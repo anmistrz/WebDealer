@@ -39,5 +39,5 @@ public partial class Notification
 
     public virtual SalesPerson SalesPerson { get; set; }
 
-    public virtual TesDrive TestDrive { get; set; }
+    public virtual TestDrive TestDrive { get; set; }
 }

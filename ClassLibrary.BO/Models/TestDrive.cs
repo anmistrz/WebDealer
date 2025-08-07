@@ -13,9 +13,11 @@ public partial class TestDrive
 
     public int DealerCarUnitId { get; set; }
 
-    public int SalesPersonId { get; set; }
+    public int? SalesPersonId { get; set; }
 
     public string Note { get; set; }
+
+    public string Status { get; set; }
 
     public DateTime AppointmentDate { get; set; }
 

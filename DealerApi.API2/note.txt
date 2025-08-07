@@ -1,0 +1,1 @@
+    //"DealerRndDBConnectionString": "Data Source=localhost;Initial Catalog=DealerRndDB;User ID=sa;Password=Alikompang123#;Trust Server Certificate=True"

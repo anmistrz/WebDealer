@@ -4,10 +4,11 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using DealerApi.Entities.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace DealerApi.DAL.Context;
 
-public partial class DealerRndDBContext : DbContext
+public partial class DealerRndDBContext : IdentityDbContext
 {
     public DealerRndDBContext(DbContextOptions<DealerRndDBContext> options)
         : base(options)
@@ -16,7 +17,8 @@ public partial class DealerRndDBContext : DbContext
 
     public DealerRndDBContext()
     {
-
+        // This constructor is intentionally left empty.
+        // It is used for design-time services like migrations.
     }
 
     public virtual DbSet<Agreement> Agreements { get; set; }
@@ -63,15 +65,24 @@ public partial class DealerRndDBContext : DbContext
 
     public virtual DbSet<WarrantyRegistration> WarrantyRegistrations { get; set; }
 
+    // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    // {
+    //     if (!optionsBuilder.IsConfigured)
+    //     {
+    //         optionsBuilder.UseSqlServer("Data Source=ANMISTRZ\\SQLEXPRESS;Initial Catalog=DealerRndDBMigrate;User ID=localhost;Password=anas123;Encrypt=True;Trust Server Certificate=True");
+    //     }
+    // }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
         modelBuilder.Entity<Agreement>(entity =>
         {
-            entity.HasKey(e => e.AgreementId).HasName("PK__Agreemen__0A309D23AEAFCFB6");
+            entity.HasKey(e => e.AgreementId).HasName("PK__Agreemen__0A309D231A386255");
 
             entity.ToTable("Agreement");
 
-            entity.HasIndex(e => e.LoiId, "UQ__Agreemen__412C029B3E9E3502").IsUnique();
+            entity.HasIndex(e => e.LoiId, "UQ__Agreemen__412C029BD9091658").IsUnique();
 
             entity.Property(e => e.AgreementId).HasColumnName("AgreementID");
             entity.Property(e => e.AgreementDate).HasColumnType("datetime");
@@ -108,7 +119,7 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<AgreementUnit>(entity =>
         {
-            entity.HasKey(e => e.AgreementUnitId).HasName("PK__Agreemen__3F6CC4780B0D7F5D");
+            entity.HasKey(e => e.AgreementUnitId).HasName("PK__Agreemen__3F6CC47871B29A00");
 
             entity.ToTable("AgreementUnit");
 
@@ -129,7 +140,7 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<Car>(entity =>
         {
-            entity.HasKey(e => e.CarId).HasName("PK__Car__68A0340E8C995E35");
+            entity.HasKey(e => e.CarId).HasName("PK__Car__68A0340E7BA04DD0");
 
             entity.ToTable("Car");
 
@@ -170,7 +181,7 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<ConsultHistory>(entity =>
         {
-            entity.HasKey(e => e.ConsultHistoryId).HasName("PK__ConsultH__C5DB29E8F9D4E9A5");
+            entity.HasKey(e => e.ConsultHistoryId).HasName("PK__ConsultH__C5DB29E8E7681CCB");
 
             entity.ToTable("ConsultHistory");
 
@@ -197,11 +208,11 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<CreditApplication>(entity =>
         {
-            entity.HasKey(e => e.CreditAppId).HasName("PK__CreditAp__5F45706CB8635AF0");
+            entity.HasKey(e => e.CreditAppId).HasName("PK__CreditAp__5F45706C4EE230F9");
 
             entity.ToTable("CreditApplication");
 
-            entity.HasIndex(e => e.AgreementId, "UQ__CreditAp__0A309D222B2C2C1A").IsUnique();
+            entity.HasIndex(e => e.AgreementId, "UQ__CreditAp__0A309D22083CEFDF").IsUnique();
 
             entity.Property(e => e.CreditAppId).HasColumnName("CreditAppID");
             entity.Property(e => e.AgreementId).HasColumnName("AgreementID");
@@ -218,11 +229,11 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__A4AE64B8179E3CA2");
+            entity.HasKey(e => e.CustomerId).HasName("PK__Customer__A4AE64B81043A2F1");
 
             entity.ToTable("Customer");
 
-            entity.HasIndex(e => e.Email, "UQ__Customer__A9D10534F97479E6").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Customer__A9D10534C957348F").IsUnique();
 
             entity.HasIndex(e => e.Email, "idx_Customer_Email");
 
@@ -266,7 +277,7 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<CustomerRating>(entity =>
         {
-            entity.HasKey(e => e.RatingId).HasName("PK__Customer__FCCDF85C76337813");
+            entity.HasKey(e => e.RatingId).HasName("PK__Customer__FCCDF85C2BCC045B");
 
             entity.ToTable("CustomerRating");
 
@@ -319,7 +330,7 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<Dealer>(entity =>
         {
-            entity.HasKey(e => e.DealerId).HasName("PK__Dealer__CA2F8E92A830183C");
+            entity.HasKey(e => e.DealerId).HasName("PK__Dealer__CA2F8E920C5A5183");
 
             entity.ToTable("Dealer");
 
@@ -355,7 +366,7 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<DealerCar>(entity =>
         {
-            entity.HasKey(e => e.DealerCarId).HasName("PK__DealerCa__7DD0B5664A24FE0C");
+            entity.HasKey(e => e.DealerCarId).HasName("PK__DealerCa__7DD0B566EC9EB396");
 
             entity.ToTable("DealerCar");
 
@@ -381,7 +392,7 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<DealerCarUnit>(entity =>
         {
-            entity.HasKey(e => e.DealerCarUnitId).HasName("PK__DealerCa__28B4C5F246BDB807");
+            entity.HasKey(e => e.DealerCarUnitId).HasName("PK__DealerCa__28B4C5F22AB18DDB");
 
             entity.ToTable("DealerCarUnit");
 
@@ -391,7 +402,7 @@ public partial class DealerRndDBContext : DbContext
 
             entity.HasIndex(e => e.Vin, "IDX_DealerCarUnit_VIN").IsUnique();
 
-            entity.HasIndex(e => e.Vin, "UQ__DealerCa__C5DF234C8D75FE01").IsUnique();
+            entity.HasIndex(e => e.Vin, "UQ__DealerCa__C5DF234C25296428").IsUnique();
 
             entity.Property(e => e.DealerCarUnitId).HasColumnName("DealerCarUnitID");
             entity.Property(e => e.AddedDate).HasDefaultValueSql("(sysutcdatetime())");
@@ -418,7 +429,7 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<DocumentCreditApplication>(entity =>
         {
-            entity.HasKey(e => e.DocumentId).HasName("PK__Document__1ABEEF6FE471ADB2");
+            entity.HasKey(e => e.DocumentId).HasName("PK__Document__1ABEEF6F852BE01C");
 
             entity.ToTable("DocumentCreditApplication");
 
@@ -440,7 +451,7 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<LetterOfIntent>(entity =>
         {
-            entity.HasKey(e => e.LoiId).HasName("PK__LetterOf__412C029A622E8EDF");
+            entity.HasKey(e => e.LoiId).HasName("PK__LetterOf__412C029A7FB45EFB");
 
             entity.ToTable("LetterOfIntent");
 
@@ -452,7 +463,7 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<LoiCarFromDealer>(entity =>
         {
-            entity.HasKey(e => new { e.LoiId, e.DealerCarUnitId }).HasName("PK__LoiCarFr__73A74EC546E3FA75");
+            entity.HasKey(e => new { e.LoiId, e.DealerCarUnitId }).HasName("PK__LoiCarFr__73A74EC5A0FD1B97");
 
             entity.ToTable("LoiCarFromDealer");
 
@@ -472,7 +483,7 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<Notification>(entity =>
         {
-            entity.HasKey(e => e.NotificationId).HasName("PK__Notifica__20CF2E326F072595");
+            entity.HasKey(e => e.NotificationId).HasName("PK__Notifica__20CF2E32BD692188");
 
             entity.ToTable("Notification");
 
@@ -512,7 +523,7 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<PaymentHistory>(entity =>
         {
-            entity.HasKey(e => e.PaymentHistoryId).HasName("PK__PaymentH__F3B933910B559580");
+            entity.HasKey(e => e.PaymentHistoryId).HasName("PK__PaymentH__F3B93391D7DFE6B3");
 
             entity.ToTable("PaymentHistory");
 
@@ -532,11 +543,11 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<Purchase>(entity =>
         {
-            entity.HasKey(e => e.PurchaseId).HasName("PK__Purchase__6B0A6BDE2AD28417");
+            entity.HasKey(e => e.PurchaseId).HasName("PK__Purchase__6B0A6BDE6AC1F485");
 
             entity.ToTable("Purchase");
 
-            entity.HasIndex(e => e.AgreementId, "UQ__Purchase__0A309D22EFF0D9F1").IsUnique();
+            entity.HasIndex(e => e.AgreementId, "UQ__Purchase__0A309D2284C52C28").IsUnique();
 
             entity.Property(e => e.PurchaseId).HasColumnName("PurchaseID");
             entity.Property(e => e.AgreementId).HasColumnName("AgreementID");
@@ -561,7 +572,7 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<SalesActivityLog>(entity =>
         {
-            entity.HasKey(e => e.ActivityLogId).HasName("PK__SalesAct__19A9B78F064B83A0");
+            entity.HasKey(e => e.ActivityLogId).HasName("PK__SalesAct__19A9B78F2926657B");
 
             entity.ToTable("SalesActivityLog");
 
@@ -598,7 +609,7 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<SalesPerson>(entity =>
         {
-            entity.HasKey(e => e.SalesPersonId).HasName("PK__SalesPer__7A591C1891F0FAFF");
+            entity.HasKey(e => e.SalesPersonId).HasName("PK__SalesPer__7A591C18AFAF1804");
 
             entity.ToTable("SalesPerson");
 
@@ -646,7 +657,7 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<SalesPersonPerformance>(entity =>
         {
-            entity.HasKey(e => e.PerformanceId).HasName("PK__SalesPer__F9606DE1D003F1DE");
+            entity.HasKey(e => e.PerformanceId).HasName("PK__SalesPer__F9606DE1BBC4F70E");
 
             entity.ToTable("SalesPersonPerformance");
 
@@ -670,7 +681,7 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<TestDrive>(entity =>
         {
-            entity.HasKey(e => e.TestDriveId).HasName("PK__TestDriv__BF98EF7276238592");
+            entity.HasKey(e => e.TestDriveId).HasName("PK__TestDriv__BF98EF72A6CC429C");
 
             entity.ToTable("TestDrive");
 
@@ -686,7 +697,12 @@ public partial class DealerRndDBContext : DbContext
             entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
             entity.Property(e => e.DealerCarUnitId).HasColumnName("DealerCarUnitID");
             entity.Property(e => e.Note).HasColumnType("text");
-            entity.Property(e => e.SalesPersonId).HasColumnName("SalesPersonID");
+            entity.Property(e => e.SalesPersonId).HasColumnName("SalesPersonID").IsRequired(false);
+            entity.Property(e => e.Status)
+                .HasMaxLength(20)
+                .IsUnicode(false)
+                .HasDefaultValue("Pending");
+
 
             entity.HasOne(d => d.Customer).WithMany(p => p.TestDrives)
                 .HasForeignKey(d => d.CustomerId)
@@ -706,7 +722,7 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<WarrantyClaim>(entity =>
         {
-            entity.HasKey(e => e.ClaimId).HasName("PK__Warranty__EF2E13BB52A47BB4");
+            entity.HasKey(e => e.ClaimId).HasName("PK__Warranty__EF2E13BBC5E8A1B3");
 
             entity.ToTable("WarrantyClaim");
 
@@ -733,11 +749,11 @@ public partial class DealerRndDBContext : DbContext
 
         modelBuilder.Entity<WarrantyRegistration>(entity =>
         {
-            entity.HasKey(e => e.WarrantyId).HasName("PK__Warranty__2ED318F3CD276A82");
+            entity.HasKey(e => e.WarrantyId).HasName("PK__Warranty__2ED318F318F9F63B");
 
             entity.ToTable("WarrantyRegistration");
 
-            entity.HasIndex(e => e.DealerCarId, "UQ__Warranty__7DD0B567FE70031C").IsUnique();
+            entity.HasIndex(e => e.DealerCarId, "UQ__Warranty__7DD0B56733E60679").IsUnique();
 
             entity.Property(e => e.WarrantyId).HasColumnName("WarrantyID");
             entity.Property(e => e.DealerCarId).HasColumnName("DealerCarID");
@@ -750,6 +766,76 @@ public partial class DealerRndDBContext : DbContext
         });
 
         OnModelCreatingPartial(modelBuilder);
+
+        //Car
+        modelBuilder.Entity<Car>().HasData(
+            new Car { CarId = 1, Make = "Mitsubishi", CarModel = "Pajero Sport", CarType = "SUV", BasePrice = 650000000, Color = "White", EngineSize = "2.4L", FuelType = "Diesel", Transmission = "Automatic", Description = "Mitsubishi Pajero Sport, kuat dan nyaman untuk petualangan." },
+            new Car { CarId = 2, Make = "Mitsubishi", CarModel = "Xpander", CarType = "MPV", BasePrice = 270000000, Color = "Black", EngineSize = "1.5L", FuelType = "Gasoline", Transmission = "Automatic", Description = "Mitsubishi Xpander, mobil keluarga dengan desain modern." },
+            new Car { CarId = 3, Make = "Mitsubishi", CarModel = "Outlander", CarType = "SUV", BasePrice = 550000000, Color = "Silver", EngineSize = "2.3L", FuelType = "Gasoline", Transmission = "Automatic", Description = "Mitsubishi Outlander, stylish dan elegan." }
+        );
+
+        //Customer 
+        modelBuilder.Entity<Customer>().HasData(
+            new Customer { CustomerId = 1, FirstName = "John", LastName = "Doe", UserName = "johndoe", Password = "password123", Email = "jhonDoe@gmail.com", PhoneNumber = "08123456789", Address = "123 Main St", Province = "Jakarta", District = "Central Jakarta", IsGuest = false, CreatedAt = DateTime.Parse("2023-12-12T10:00:00") },
+            new Customer { CustomerId = 2, FirstName = "Anistia", LastName = "Chan", UserName = "anistiachan", Password = "password123", Email = "anistiachan04@gmail.com", PhoneNumber = "08123456789", Address = "456 Elm St", Province = "Jakarta", District = "West Jakarta", IsGuest = false, CreatedAt = DateTime.Parse("2023-12-12T10:00:00") }
+        );
+
+        //Dealer
+        modelBuilder.Entity<Dealer>().HasData(
+            new Dealer { DealerId = 1, DealerName = "Mitsubishi Dealer Jakarta", Location = "Jakarta", Province = "DKI Jakarta", City = "Jakarta", Address = "Jl. Sudirman No. 1", PhoneNumber = "021-12345678", Email = "mitsubishiJakarta@gmail.com", CreatedAt = DateTime.Parse("2023-12-12T10:00:00") },
+            new Dealer { DealerId = 2, DealerName = "Mitsubishi Dealer Surabaya", Location = "Surabaya", Province = "Jawa Timur", City = "Surabaya", Address = "Jl. Diponegoro No. 2", PhoneNumber = "031-87654321", Email = "mitsubishiSby@gmail.com", CreatedAt = DateTime.Parse("2023-12-12T10:00:00") }
+        );
+
+        //DealerCar
+        modelBuilder.Entity<DealerCar>().HasData(
+            new DealerCar { DealerCarId = 1, DealerId = 1, CarId = 1, DealerPrice = 700000000, Stock = 5, Status = "Available" },
+            new DealerCar { DealerCarId = 2, DealerId = 1, CarId = 2, DealerPrice = 300000000, Stock = 4, Status = "Available" }
+        );
+
+        //DealeRCarUnit
+        modelBuilder.Entity<DealerCarUnit>().HasData(
+            new DealerCarUnit { DealerCarUnitId = 1, DealerCarId = 1, Vin = "VIN1234567893", Color = "White", Status = "TestDrive", AddedDate = DateTime.Parse("2023-12-12T10:00:00") },
+            new DealerCarUnit { DealerCarUnitId = 2, DealerCarId = 1, Vin = "VIN0987654321", Color = "Black", Status = "Available", AddedDate = DateTime.Parse("2023-12-12T10:00:00") },
+            new DealerCarUnit { DealerCarUnitId = 3, DealerCarId = 1, Vin = "VIN1234567891", Color = "Silver", Status = "Available", AddedDate = DateTime.Parse("2023-12-12T10:00:00") },
+            new DealerCarUnit { DealerCarUnitId = 4, DealerCarId = 1, Vin = "VIN0987654322", Color = "Red", Status = "Available", AddedDate = DateTime.Parse("2023-12-12T10:00:00") },
+            new DealerCarUnit { DealerCarUnitId = 5, DealerCarId = 1, Vin = "VIN1234567892", Color = "Blue", Status = "Available", AddedDate = DateTime.Parse("2023-12-12T10:00:00") },
+            new DealerCarUnit { DealerCarUnitId = 6, DealerCarId = 2, Vin = "VIN1234567895", Color = "White", Status = "TestDrive", AddedDate = DateTime.Parse("2023-12-12T10:00:00") },
+            new DealerCarUnit { DealerCarUnitId = 7, DealerCarId = 2, Vin = "VIN0987654323", Color = "Black", Status = "Available", AddedDate = DateTime.Parse("2023-12-12T10:00:00") },
+            new DealerCarUnit { DealerCarUnitId = 8, DealerCarId = 2, Vin = "VIN1234567894", Color = "Silver", Status = "Available", AddedDate = DateTime.Parse("2023-12-12T10:00:00") },
+            new DealerCarUnit { DealerCarUnitId = 9, DealerCarId = 2, Vin = "VIN0987654324", Color = "Red", Status = "Available", AddedDate = DateTime.Parse("2023-12-12T10:00:00") }
+        );
+
+        //SalesPerson
+        modelBuilder.Entity<SalesPerson>().HasData(
+            new SalesPerson { SalesPersonId = 1, DealerId = 1, FullName = "Alice Johnson", UserName = "alicej", Password = "password123", Email = "alicejhonson@gmail.com", PhoneNumber = "08123456789", IsActive = true, CreatedAt = DateTime.Parse("2023-12-12T10:00:00") },
+            new SalesPerson { SalesPersonId = 2, DealerId = 2, FullName = "Anastasya", UserName = "anastasya", Password = "password123", Email = "anastasya120720@gmail.com", PhoneNumber = "08123456789", IsActive = true, CreatedAt = DateTime.Parse("2023-12-12T10:00:00") }
+        );
+
+        //ConsultHistory
+        modelBuilder.Entity<ConsultHistory>().HasData(
+            new ConsultHistory { ConsultHistoryId = 1, CustomerId = 1, DealerCarUnitId = 1, SalesPersonId = 1, Budget = 700000000, Note = "Interested in Pajero Sport", ConsultDate = DateTime.Parse("2023-12-12T10:00:00") },
+            new ConsultHistory { ConsultHistoryId = 2, CustomerId = 2, DealerCarUnitId = 2, SalesPersonId = 2, Budget = 300000000, Note = "Looking for Xpander", ConsultDate = DateTime.Parse("2023-12-12T10:00:00") }
+        );
+
+        //TestDrive
+        modelBuilder.Entity<TestDrive>().HasData(
+            new TestDrive { TestDriveId = 1, CustomerId = 1, DealerCarUnitId = 1, SalesPersonId = 1, AppointmentDate = DateTime.Parse("2023-12-12T10:00:00"), Note = "Test drive for Pajero Sport", Status = "Pending" },
+            new TestDrive { TestDriveId = 2, CustomerId = 2, DealerCarUnitId = 2, SalesPersonId = 2, AppointmentDate = DateTime.Parse("2023-12-12T10:00:00"), Note = "Test drive for Xpander", Status = "Pending" }
+        );
+
+        //Notification
+        modelBuilder.Entity<Notification>().HasData(
+            new Notification { NotificationId = 1, CustomerId = 1, SalesPersonId = 1, DealerId = 1, ConsultHistoryId = null, TestDriveId = 1, Message = "Your test drive for Pajero Sport is scheduled.", NotificationType = "TestDrive", CreatedAt = DateTime.Parse("2023-12-12T10:00:00") },
+            new Notification { NotificationId = 2, CustomerId = 2, SalesPersonId = 2, DealerId = 2, ConsultHistoryId = null, TestDriveId = 2, Message = "Your test drive for Xpander is scheduled.", NotificationType = "TestDrive", CreatedAt = DateTime.Parse("2023-12-12T10:00:00") },
+            new Notification { NotificationId = 3, CustomerId = 1, SalesPersonId = 1, DealerId = 1, ConsultHistoryId = 1, TestDriveId = null, Message = "Consultation for Pajero Sport is confirmed.", NotificationType = "Consultation", CreatedAt = DateTime.Parse("2023-12-12T10:00:00") },
+            new Notification { NotificationId = 4, CustomerId = 2, SalesPersonId = 2, DealerId = 2, ConsultHistoryId = 2, TestDriveId = null, Message = "Consultation for Xpander is confirmed.", NotificationType = "Consultation", CreatedAt = DateTime.Parse("2023-12-12T10:00:00") }
+        );
+
+        //SalesPersonPerformance
+        modelBuilder.Entity<SalesPersonPerformance>().HasData(
+            new SalesPersonPerformance { PerformanceId = 1, MetricDate = DateOnly.Parse("2023-12-12T10:00:00"), SalesPersonId = 1, MetricType = "Sales", MetricValue = 5, Notes = "Excellent performance in sales this month." },
+            new SalesPersonPerformance { PerformanceId =2,  MetricDate = DateOnly.Parse("2023-12-12T10:00:00"), SalesPersonId = 2, MetricType = "Customer Satisfaction", MetricValue = 4.5, Notes = "High customer satisfaction ratings." }
+         );
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

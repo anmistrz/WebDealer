@@ -10,13 +10,6 @@ namespace WebPromotion.BL.DealerBL
 {
     public class DealerBLClass : IDealerBL
     {
-        private readonly IDealer _dealerDAL;
-
-        public DealerBLClass(IDealer dealerDAL)
-        {
-            _dealerDAL = dealerDAL;
-        }
-
         public void DeleteDealer(int id)
         {
             throw new NotImplementedException();
@@ -34,12 +27,7 @@ namespace WebPromotion.BL.DealerBL
 
         public List<SelectListItem> GetoptionsDealers()
         {
-            var dealers = _dealerDAL.GetAll();
-            return dealers.Select(d => new SelectListItem
-            {
-                Value = d.DealerId.ToString(),
-                Text = "" + d.DealerName + " (" + d.Location +  " - " + d.City + ")"
-            }).ToList();
+            throw new NotImplementedException();
         }
 
         public Dealer InsertDealer(Dealer dealer)

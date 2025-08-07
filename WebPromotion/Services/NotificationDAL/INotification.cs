@@ -1,0 +1,14 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using DealerApi.DAL.Interfaces;
+using WebPromotion.Models;
+
+namespace WebPromotion.DAL.NotificationDAL
+{
+    public interface INotification : ICrud<Notification>
+    {
+        
+    }
+}

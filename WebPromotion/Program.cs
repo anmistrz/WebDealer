@@ -1,13 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using WebPromotion.BL.CarBL;
 using WebPromotion.BL.ConsultHistoryBL;
 using WebPromotion.BL.DealerBL;
-using WebPromotion.DAL;
-using WebPromotion.DAL.CarDAL;
-using WebPromotion.DAL.ConsultationDAL;
-using WebPromotion.DAL.CustomerDAL;
-using WebPromotion.DAL.DealerDAL;
-using WebPromotion.DAL.NotificationDAL;
+using DealerApi.DAL.Context;
+using DealerApi.DAL.DAL;
+using DealerApi.DAL.Extension;
+using DealerApi.DAL.Interfaces;
+using WebPromotion.Services.Consultation;
+// using WebPromotion.BL.DealerCar;
+using WebPromotion.Services.DealerCar;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,18 +17,33 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<DBPromotionExerciseContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DBPromotionExerciseConnectionString"))
-);
+// Configure Auth
+builder.Services.AddAuthentication(defaultScheme: IdentityConstants.ApplicationScheme)
+    .AddIdentityCookies();
 
-builder.Services.AddScoped<ICar, CarDALClass>();
+// Add Identity Core services
+builder.Services.AddIdentityCore<IdentityUser>(options => {
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 6;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+});
+
+// Register DAL and Application services
+builder.Services.AddDataAccessLayerServices(builder.Configuration);
+
+// Register Application services
+builder.Services.AddHttpClient<IDealerCarServices, DealerCarServices>();
+
+
+// Register MVC services
 builder.Services.AddScoped<ICarBL, CarBLClass>();
 builder.Services.AddScoped<IDealerBL, DealerBLClass>();
-builder.Services.AddScoped<IDealer, DealerDALClass>();
-builder.Services.AddScoped<INotification, NotifictionDALClass>();
-builder.Services.AddScoped<ICustomer, CustomerDALClass>();
 builder.Services.AddScoped<IConsultHistoryBL, ConsultHistoryBLClass>();
-builder.Services.AddScoped<IConsultation, ConsultationDALClass>();
+builder.Services.AddScoped<IConsultationServices, ConsultationServices>();
+// builder.Services.AddScoped<IDealerCarBusiness, DealerCarBusiness>();
+
 
 
 var app = builder.Build();
@@ -44,6 +61,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

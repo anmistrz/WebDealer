@@ -7,7 +7,10 @@ using WebPromotion.BL.DealerBL;
 using WebPromotion.Models;
 using WebPromotion.ViewModels.ConsultHistoryView;
 using WebPromotion.ViewModels.Modal;
-
+using WebPromotion.Models;
+// using WebPromotion.BL.DealerCar;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using WebPromotion.Services.DealerCar;
 namespace WebPromotion.Controllers
 {
     public class HomeController : Controller
@@ -17,23 +20,44 @@ namespace WebPromotion.Controllers
         private readonly IDealerBL _dealerBL;
         private readonly IConsultHistoryBL _consultationBL;
 
-        public HomeController(ILogger<HomeController> logger, ICarBL carBL, IDealerBL dealerBL, IConsultHistoryBL consultHistoryBL)
+        private readonly IDealerCarServices _dealerCarService;
+
+
+        public HomeController(ILogger<HomeController> logger, ICarBL carBL, IDealerBL dealerBL, IConsultHistoryBL consultHistoryBL, IDealerCarServices dealerCarServices)
         {
             _carBL = carBL;
             _logger = logger;
             _dealerBL = dealerBL;
             _consultationBL = consultHistoryBL;
+            _dealerCarService = dealerCarServices ?? throw new ArgumentNullException(nameof(dealerCarServices));
         }
 
         public IActionResult Index()
         {
             try
             {
-                var carOptions = _carBL.GetOptionsCar();
-                var dealerOptions = _dealerBL.GetoptionsDealers();
-                ViewBag.DealerOptions = dealerOptions;
-                ViewBag.CarOptions = carOptions;
+
+                var DealerCarOptions = _dealerCarService.GetOptionsDealerCarUnitByStatusAsync("TestDrive").Result;
+
+                ViewBag.DealerCarOptions = DealerCarOptions;
+                Console.WriteLine($"DealerCarOptions: {JsonSerializer.Serialize(DealerCarOptions)}");
                 
+                ViewBag.DealerOptions = DealerCarOptions?
+                    .SelectMany(option => option.Dealers)
+                    .Select(x => new SelectListItem
+                    {
+                        Value = x.DealerID.ToString(),
+                        Text = x.DealerName
+                    }).ToList() ?? new List<SelectListItem>();
+
+                ViewBag.CarOptions = DealerCarOptions?
+                    .SelectMany(option => option.Cars)
+                    .Select(x => new SelectListItem
+                    {
+                        Value = x.CarId.ToString(),
+                        Text = x.CarName
+                    }).ToList() ?? new List<SelectListItem>();
+
                 // Handle modal dari TempData setelah redirect
                 if (TempData["SuccessModal"] != null)
                 {

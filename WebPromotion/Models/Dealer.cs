@@ -27,8 +27,6 @@ public partial class Dealer
 
     public DateTime? UpdatedAt { get; set; }
 
-    public virtual ICollection<ConsultHistory> ConsultHistories { get; set; } = new List<ConsultHistory>();
-
     public virtual ICollection<CustomerRating> CustomerRatings { get; set; } = new List<CustomerRating>();
 
     public virtual ICollection<DealerCar> DealerCars { get; set; } = new List<DealerCar>();
@@ -38,6 +36,4 @@ public partial class Dealer
     public virtual ICollection<SalesActivityLog> SalesActivityLogs { get; set; } = new List<SalesActivityLog>();
 
     public virtual ICollection<SalesPerson> SalesPeople { get; set; } = new List<SalesPerson>();
-
-    public virtual ICollection<TesDrive> TesDrives { get; set; } = new List<TesDrive>();
 }
