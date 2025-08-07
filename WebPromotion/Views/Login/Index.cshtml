@@ -1,0 +1,40 @@
+@page
+@model WebPromotion.Views.Login.Index
+@{
+    @* ViewData["Title"] = "Index"; *@
+}
+
+
+<link href="~/css/login.css" rel="stylesheet" />
+
+  <div class="d-lg-flex half">
+    <div class="bg order-1 order-md-2" style="background-image: url('@Url.Content("~/img/pajero-2.jpg")');"></div>
+        <div class="contents order-2 order-md-1">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-7 gap-2">
+                        <h3 class="mb-4 d-flex align-items-center gap-2">Login to <img src="~/img/velora_logo.jpg" alt="Logo" style="width: 100px; height: auto;" /></h3> 
+                        <p class="mb-4"> Your gateway to a world of possibilities. Join us and explore the future.</p>
+                        <form action="#" method="post">
+                        <div class="form-group first mb-3">
+                            <label for="username">Username</label>
+                            <input type="text" class="form-control" placeholder="your-email@gmail.com" id="username">
+                        </div>
+                        <div class="form-group last mb-3">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" placeholder="Your Password" id="password">
+                        </div>
+                        
+                        <div class="d-flex mb-5 align-items-center">
+                            <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span> 
+                        </div>
+
+                        <input type="submit" value="Log In" class="btn btn-block btn-primary">
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

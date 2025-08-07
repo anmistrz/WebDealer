@@ -1,15 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using WebPromotion.BL.CarBL;
-using WebPromotion.BL.ConsultHistoryBL;
-using WebPromotion.BL.DealerBL;
-using DealerApi.DAL.Context;
-using DealerApi.DAL.DAL;
 using DealerApi.DAL.Extension;
-using DealerApi.DAL.Interfaces;
 using WebPromotion.Services.Consultation;
 // using WebPromotion.BL.DealerCar;
 using WebPromotion.Services.DealerCar;
+using WebPromotion.Business;
+using WebPromotion.Business.Interface;
+using WebPromotion.Services;
+using WebPromotion.Services.TestDrive;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,14 +33,22 @@ builder.Services.AddDataAccessLayerServices(builder.Configuration);
 
 // Register Application services
 builder.Services.AddHttpClient<IDealerCarServices, DealerCarServices>();
+builder.Services.AddHttpClient<IConsultationServices, ConsultationServices>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["ApiBaseUrl"]);
+});
+builder.Services.AddHttpClient<ITestDriveService, TestDriveServices>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["ApiBaseUrl"]);
+});
 
+// Register Business Logic services
+builder.Services.AddScoped<IDealerCarBusiness, DealerCarbusiness>();
+builder.Services.AddScoped<IConsultationBusiness, ConsultationBusiness>();
+builder.Services.AddScoped<ITestDriveBusiness, TestDriveBusiness>();
 
 // Register MVC services
-builder.Services.AddScoped<ICarBL, CarBLClass>();
-builder.Services.AddScoped<IDealerBL, DealerBLClass>();
-builder.Services.AddScoped<IConsultHistoryBL, ConsultHistoryBLClass>();
 builder.Services.AddScoped<IConsultationServices, ConsultationServices>();
-// builder.Services.AddScoped<IDealerCarBusiness, DealerCarBusiness>();
 
 
 

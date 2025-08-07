@@ -46,7 +46,8 @@ namespace DealerApi.Application
                         new CarOptionsDTO
                         {
                             CarId = tuple.Item2.CarId,
-                            CarName = tuple.Item2.CarModel
+                            CarName = tuple.Item2.CarModel,
+                            DealerCarUnitId = tuple.Item3.DealerCarUnitId
                         }
                     },
                     DealerCarUnits = new List<DealerCarUnitOnlyIdDTO>

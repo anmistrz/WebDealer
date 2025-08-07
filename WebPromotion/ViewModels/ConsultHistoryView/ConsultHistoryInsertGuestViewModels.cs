@@ -14,6 +14,8 @@ namespace WebPromotion.ViewModels.ConsultHistoryView
         [Range(1, int.MaxValue, ErrorMessage = "Please select a dealer")]
         public int DealerId { get; set; }
 
+        public string DealerCarUnitId { get; set; }
+
         [Required(ErrorMessage = "First name is required")]
         public string? FirstName { get; set; }
         

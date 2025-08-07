@@ -56,7 +56,6 @@ namespace WebPromotion.Services.DealerCar
         public async Task<IEnumerable<DealerCarUnitOptionsDTO>> GetOptionsDealerCarUnitByStatusAsync(string status)
         {
             var response = await _httpClient.GetAsync($"DealerCar/options-by-status/{status}");
-            Console.WriteLine($"Response Data: {response}");
             if (!response.IsSuccessStatusCode)
             {
                 // Prefer not to throw System.Exception directly
@@ -64,7 +63,7 @@ namespace WebPromotion.Services.DealerCar
             }
 
             var apiData = await response.Content.ReadAsStringAsync();
-            Console.WriteLine($"API Data: {apiData}");
+
             if (string.IsNullOrEmpty(apiData))
             {
                 return Enumerable.Empty<DealerCarUnitOptionsDTO>();
@@ -75,9 +74,6 @@ namespace WebPromotion.Services.DealerCar
                 PropertyNameCaseInsensitive = true
             });
 
-
-
-            Console.WriteLine($"Deserialized Options: {JsonSerializer.Serialize(apiOptions)}");
             return apiOptions ?? Enumerable.Empty<DealerCarUnitOptionsDTO>();
         }
     }

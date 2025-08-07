@@ -1,35 +1,37 @@
 using System.Diagnostics;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
-using WebPromotion.BL.CarBL;
-using WebPromotion.BL.ConsultHistoryBL;
-using WebPromotion.BL.DealerBL;
 using WebPromotion.Models;
 using WebPromotion.ViewModels.ConsultHistoryView;
 using WebPromotion.ViewModels.Modal;
 using WebPromotion.Models;
-// using WebPromotion.BL.DealerCar;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebPromotion.Services.DealerCar;
+using WebPromotion.Services.Consultation;
+using WebPromotion.Services.DTO;
+using WebPromotion.ViewModels.TestDriveView;
+using WebPromotion.Business;
+using WebPromotion.Business.Interface;
 namespace WebPromotion.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ICarBL _carBL;
-        private readonly IDealerBL _dealerBL;
-        private readonly IConsultHistoryBL _consultationBL;
-
-        private readonly IDealerCarServices _dealerCarService;
+        private readonly IConsultationBusiness _consultationBusiness;
+        private readonly IDealerCarBusiness _dealerCarBusiness;
+        private readonly ITestDriveBusiness _testDriveBusiness;
 
 
-        public HomeController(ILogger<HomeController> logger, ICarBL carBL, IDealerBL dealerBL, IConsultHistoryBL consultHistoryBL, IDealerCarServices dealerCarServices)
+        public HomeController(
+            ILogger<HomeController> logger,
+            IConsultationBusiness consultationBusiness,
+            IDealerCarBusiness dealerCarBusiness,
+            ITestDriveBusiness testDriveBusiness)
         {
-            _carBL = carBL;
             _logger = logger;
-            _dealerBL = dealerBL;
-            _consultationBL = consultHistoryBL;
-            _dealerCarService = dealerCarServices ?? throw new ArgumentNullException(nameof(dealerCarServices));
+            _consultationBusiness = consultationBusiness;
+            _dealerCarBusiness = dealerCarBusiness ?? throw new ArgumentNullException(nameof(dealerCarBusiness));
+            _testDriveBusiness = testDriveBusiness ?? throw new ArgumentNullException(nameof(testDriveBusiness));
         }
 
         public IActionResult Index()
@@ -37,13 +39,13 @@ namespace WebPromotion.Controllers
             try
             {
 
-                var DealerCarOptions = _dealerCarService.GetOptionsDealerCarUnitByStatusAsync("TestDrive").Result;
+                var DealerCarOptions = _dealerCarBusiness.GetOptionsDealerCarUnitByStatus("TestDrive") ?? new List<List<DealerCarUnitOptionsDTO>>();
+                Console.WriteLine($"DealerCarOptions: {JsonSerializer.Serialize(DealerCarOptions)}");
 
                 ViewBag.DealerCarOptions = DealerCarOptions;
-                Console.WriteLine($"DealerCarOptions: {JsonSerializer.Serialize(DealerCarOptions)}");
-                
+
                 ViewBag.DealerOptions = DealerCarOptions?
-                    .SelectMany(option => option.Dealers)
+                    .SelectMany(optionList => optionList.SelectMany(option => option.Dealers))
                     .Select(x => new SelectListItem
                     {
                         Value = x.DealerID.ToString(),
@@ -51,12 +53,16 @@ namespace WebPromotion.Controllers
                     }).ToList() ?? new List<SelectListItem>();
 
                 ViewBag.CarOptions = DealerCarOptions?
-                    .SelectMany(option => option.Cars)
+                    .SelectMany(optionList => optionList.SelectMany(option => option.Cars))
                     .Select(x => new SelectListItem
                     {
-                        Value = x.CarId.ToString(),
+                        Value = $"{x.CarId} - {x.DealerCarUnitId}",
                         Text = x.CarName
                     }).ToList() ?? new List<SelectListItem>();
+
+                // Set default values for the dropdowns
+
+
 
                 // Handle modal dari TempData setelah redirect
                 if (TempData["SuccessModal"] != null)
@@ -79,6 +85,7 @@ namespace WebPromotion.Controllers
                 
                 return View();
             }
+
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error retrieving car options");
@@ -89,7 +96,7 @@ namespace WebPromotion.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddConsultation(ConsultHistoryInsertGuestViewModels model)
+        public async Task<IActionResult> AddConsultation(ConsultHistoryInsertGuestViewModels model)
         {
             Console.WriteLine($"Received model: {JsonSerializer.Serialize(model)}");
             
@@ -103,8 +110,24 @@ namespace WebPromotion.Controllers
             {
                 try
                 {
-                    // Call your BL layer to add the consultation
-                    _consultationBL.InsertConsultHistoryGuest(model);
+                    var getDealerCarUnit = model.DealerCarUnitId.Split('-');
+                    var dataBody = new ConsultationInsertGuestDTO
+                    {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Email = model.Email,
+                        PhoneNumber = model.PhoneNumber,
+                        DealerCarUnitId = int.Parse(getDealerCarUnit[1].Trim()),
+                        ConsultDate = model.ConsultDate,
+                        Note = model.Note,
+                        SalesPersonId = model.SalesPersonId,
+                        Budget = model.Budget ?? 0,
+                        DealerId = model.DealerId
+                    };
+
+                    Console.WriteLine($"Data to be sent: {JsonSerializer.Serialize(dataBody)}");
+
+                    await _consultationBusiness.CreateConsultHistoryGuest(dataBody);
 
                     // Set success modal untuk ditampilkan di Index
                     TempData["SuccessModal"] = JsonSerializer.Serialize(new ModalViewModels
@@ -151,6 +174,82 @@ namespace WebPromotion.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddTestDrive(TestDriveGuestViewModels model)
+        {
+            Console.WriteLine($"Received model: {JsonSerializer.Serialize(model)}");
+
+            Console.WriteLine($"DealerCarUnitId: {ModelState.IsValid}");
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var getDealerCarUnit = model.DealerCarUnitId.Split('-');
+                    var dataBody = new TestDriveInsertGuestDTO
+                    {
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Email = model.Email,
+                        PhoneNumber = model.PhoneNumber,
+                        AppointmentDate = model.AppointmentDate,
+                        Note = model.Note,
+                        DealerId = model.DealerId,
+                        DealerCarUnitId = int.Parse(getDealerCarUnit[1].Trim()),
+                        CarId = int.Parse(getDealerCarUnit[0].Trim())
+                    };
+
+                    Console.WriteLine($"Data TEST DRIVE to be sent: {JsonSerializer.Serialize(dataBody)}");
+
+                    await _testDriveBusiness.InsertTestDriveGuest(dataBody);
+
+                    // Set success modal untuk ditampilkan di Index
+                    TempData["SuccessModal"] = JsonSerializer.Serialize(new ModalViewModels
+                    {
+                        Title = "Success",
+                        Message = "Test drive has been successfully added!",
+                        ButtonText = "OK",
+                        IsVisible = true,
+                        Type = "success"
+                    });
+
+                    // Redirect ke Index setelah insert berhasil
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error adding test drive");
+
+                    // Set error modal untuk ditampilkan di Index
+                    TempData["ErrorModal"] = JsonSerializer.Serialize(new ModalViewModels
+                    {
+                        Title = "Error",
+                        Message = "Failed to add test drive. Please try again.",
+                        ButtonText = "OK",
+                        IsVisible = true,
+                        Type = "failed"
+                    });
+
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                // Set validation error modal untuk ditampilkan di Index
+                TempData["ErrorModal"] = JsonSerializer.Serialize(new ModalViewModels
+                {
+                    Title = "Validation Error",
+                    Message = "Please fill in all required fields correctly.",
+                    ButtonText = "OK",
+                    IsVisible = true,
+                    Type = "failed"
+                });
+
+                return RedirectToAction("Index");
+            }
+        }   
 
         public IActionResult Privacy()
         {
